@@ -7,4 +7,4 @@
 
 include <lib/peg_A.scad>
 
-peg_At( 8 );
+peg_At( 1, 1, 8 );
