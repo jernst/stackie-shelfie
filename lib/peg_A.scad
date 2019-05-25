@@ -12,30 +12,30 @@ include <board_A.scad>
 // other end, so it can be inserted into another peg
 //
 // xu, yu, zu: x/y/z units (e.g. 4 for 4 cm)
-module peg_At( xu, yu, zu ) {
-    peg_A( xu, yu, zu, $dz_unit );
+module peg_At( xu, yu, zu, hole_h = $dz_unit * 1.5, taper = 1  ) {
+    peg_A( xu, yu, zu, $dz_unit, hole_h = hole_h, taper = taper );
 }
 
 // This peg's cylinder, by default, has the same length as the thickness
 // of board_A, so it won't stick out
-module peg_A( xu, yu, zu, cyl_h = $dz_unit/2, $taper=1 ) {
+module peg_A( xu, yu, zu, cyl_h = $dz_unit/2, hole_h = $dz_unit * 1.5, taper = 1 ) {
     h = $dz_unit * zu;
 
     difference() {
         cube( [ $dx_unit * xu, $dy_unit * yu, h ] );
 
-        for( ix = [0:xu-1] ) {
-            for( iy = [0:yu-1] ) {
+        for( ix = [0:ceil(xu)-1] ) {
+            for( iy = [0:ceil(yu)-1] ) {
                 translate( [ $dx_unit * ix + $dx_unit/2, $dy_unit * iy + $dy_unit/2, -$eps ] ) {
                     // make the hole extra deep -- doesn't hurt, and there will be printer leftovers
-                    cylinder( r = $r1, h = min( $dz_unit * 1.5, h * 0.8 ) + $eps );
+                    cylinder( r = $r1, h = min( hole_h, h * 0.8 ) + $eps );
                 };
             };
         };
     };
 
-    for( ix = [0:xu-1] ) {
-        for( iy = [0:yu-1] ) {
+    for( ix = [0:ceil(xu)-1] ) {
+        for( iy = [0:ceil(yu)-1] ) {
             translate( [ $dx_unit * ix , $dy_unit * iy, 0 ] ) {
                 difference() {
                     // see also board_A_hole
@@ -65,7 +65,7 @@ module peg_A( xu, yu, zu, cyl_h = $dz_unit/2, $taper=1 ) {
                     translate( [ $dx_unit/2, $dy_unit/2, h ] )
                     rotate_extrude( angle=360 ) {
                         polygon( [
-                            [ $r1 - $taper/2, cyl_h ],
+                            [ $r1 - taper/2, cyl_h ],
                             [ $r1, cyl_h - 1 ],
                             [ $r1, cyl_h ]
                         ] );
