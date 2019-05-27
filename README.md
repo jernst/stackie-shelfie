@@ -82,7 +82,7 @@ And finally, a peg that can be used to keep things from moving around
 on the shelf. It has a regular-size cylinder but is only half a unit
 wide at the top.
 
-![peg05x1_A1t.png](peg05x1_A1t.png)
+![peg05x1_A1.png](peg05x1_A1.png)
 
 How to use
 ----------

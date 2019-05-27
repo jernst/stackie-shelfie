@@ -7,4 +7,4 @@
 
 include <lib/peg_A.scad>
 
-peg_At( 0.5, 1, 1, hole_h = 0 );
+peg_A( 0.5, 1, 1, hole_h = 0 );
