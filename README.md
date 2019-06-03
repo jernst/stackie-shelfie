@@ -44,6 +44,9 @@ for the size of the part we want.
 The parts so far
 ----------------
 
+Note: it's really easy to create different dimensions for those parts:
+just create your own OpenSCAD file and edit the parameters.
+
 A 10 x 20 unit (e.g. 100mm x 200mm x 5mm) shelf.
 
 ![board_A10x20.png](board_A10x20.png)
@@ -74,15 +77,21 @@ A foot, for the bottom below the board:
 
 ![foot_A.png](foot_A.png)
 
-And a double-foot that also plays double duty:
+A double-foot that also plays double duty:
 
 ![foot2x1_A.png](foot2x1_A.png)
 
-And finally, a peg that can be used to keep things from moving around
+A peg that can be used to keep things from moving around
 on the shelf. It has a regular-size cylinder but is only half a unit
 wide at the top.
 
 ![peg05x1_A1.png](peg05x1_A1.png)
+
+An X-shaped double-peg that acts as a strut (so the shelf does not
+wobble) but is easily 3D-printable. You may want to print it with a
+brim if needed.
+
+![xpeg6x1_A12t.png](xpeg6x1_A12t.png)
 
 How to use
 ----------
@@ -97,10 +106,12 @@ directory. This should work out of the box on Linux (tested) and MacOS
 (not tested, you may need developer tools installed) and, I'm sure, somehow
 can be made to work on Windows.
 
+The xpeg uses my Bezier-curve implementation contained in the
+[JOSL](https://github.com/jernst/josl/) OpenSCAD library. Follow this
+link to learn how to use the library.
+
 The, you need to slice the STL files for your printer. How to best do that
 depends on your 3D printer. I'm using a Prusa i3 and have been slicing them
 in the [Prusa edition of Slic3r](https://www.prusa3d.com/prusaslicer/) with
 defaults for PLA, using the 0.15mm "Optimal" settings. Except for the
 half-peg, where I generated supports.
-
-
