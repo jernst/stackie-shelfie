@@ -36,42 +36,44 @@ module peg_A( xu, yu, zu, cyl_h = $dz_unit/2, hole_h = $dz_unit * 1.5, taper = 1
 
     for( ix = [0:ceil(xu)-1] ) {
         for( iy = [0:ceil(yu)-1] ) {
-            translate( [ $dx_unit * ix , $dy_unit * iy, 0 ] ) {
-                difference() {
-                    // see also board_A_hole
-                    translate( [ 0, 0, h ] ) {
-                        cube( [ $dx_unit, $dy_unit, cyl_h ] );
-                    };
-
-                    translate( [ $dx_unit/2, $dy_unit/2, h ] )
-                    rotate_extrude( angle=360 ) {
-                        translate( [ $r1, -$eps, 0 ] ) {
-                            union() {
-                                // go further to the right than needed: 2 * $r2 will do
-                                translate( [ 0, $r2 - $r1, 0 ] ) {
-                                    square( [ 2 * $r2 - $r1, cyl_h + 4*$eps - ($r2 - $r1) ] );
-                                }
-                                translate( [ $r2 - $r1, $r2 - $r1, 0 ] ) {
-                                    circle( r = $r2 - $r1 );
-                                }
-                                translate( [ $r2 - $r1, -$eps, 0 ] ) {
-                                    square( [ 2 * $r2 - $r1, cyl_h + 2 * $eps ] );
-                                }
-                            }
-                        }
-                    }
-
-                    // taper
-                    translate( [ $dx_unit/2, $dy_unit/2, h ] )
-                    rotate_extrude( angle=360 ) {
-                        polygon( [
-                            [ $r1 - taper/2, cyl_h ],
-                            [ $r1, cyl_h - 1 ],
-                            [ $r1, cyl_h ]
-                        ] );
-                    };
-                }
+            translate( [ $dx_unit * ix , $dy_unit * iy, h ] ) {
+                peg_A_cylinder( cyl_h, taper );
             }
         };
     }
 };
+
+module peg_A_cylinder( cyl_h, taper ) {
+    difference() {
+        // see also board_A_hole
+        cube( [ $dx_unit, $dy_unit, cyl_h ] );
+
+        translate( [ $dx_unit/2, $dy_unit/2, 0 ] )
+        rotate_extrude( angle=360 ) {
+            translate( [ $r1, -$eps, 0 ] ) {
+                union() {
+                    // go further to the right than needed: 2 * $r2 will do
+                    translate( [ 0, $r2 - $r1, 0 ] ) {
+                        square( [ 2 * $r2 - $r1, cyl_h + 4*$eps - ($r2 - $r1) ] );
+                    }
+                    translate( [ $r2 - $r1, $r2 - $r1, 0 ] ) {
+                        circle( r = $r2 - $r1 );
+                    }
+                    translate( [ $r2 - $r1, -$eps, 0 ] ) {
+                        square( [ 2 * $r2 - $r1, cyl_h + 2 * $eps ] );
+                    }
+                 }
+            }
+        }
+
+        // taper
+        translate( [ $dx_unit/2, $dy_unit/2, 0 ] )
+        rotate_extrude( angle=360 ) {
+            polygon( [
+                [ $r1 - taper/2, cyl_h ],
+                [ $r1, cyl_h - 1 ],
+                [ $r1, cyl_h ]
+            ] );
+        };
+    }
+}
